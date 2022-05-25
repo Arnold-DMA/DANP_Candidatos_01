@@ -21,10 +21,7 @@ fun AppNavigation(
 
     NavHost(navController = navController, startDestination = PrimeraVentana.route) {
         composable(route = PrimeraVentana.route) {
-            PrimeraVentana(
-            enviarBusqueda = { newText ->
-                navController.navigate(SegundaVentana.createRoute(newText))
-            })
+            PrimeraVentana(navController)
         }
         composable(
             route = SegundaVentana.route,
