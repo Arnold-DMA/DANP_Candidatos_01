@@ -1,6 +1,5 @@
 package com.danp.danp_candidatos_01.screens
 
-import android.content.Context
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.*
@@ -19,7 +18,6 @@ import androidx.compose.ui.unit.dp
 import com.danp.danp_candidatos_01.Distritos
 import androidx.compose.foundation.clickable
 import androidx.compose.ui.platform.LocalContext
-import androidx.datastore.preferences.preferencesDataStore
 import com.danp.danp_candidatos_01.Preferencias
 import kotlinx.coroutines.launch
 
@@ -33,16 +31,17 @@ fun PrimeraVentana(navController: NavController){
         }
     }) {
         ListDistritos(Distritos.distritos, navController)
+        
     }
 }
 
 @Composable
 fun ListDistritos(distritos: List<Distritos.Distrito>, navController: NavController) {
-    LazyColumn {
-        items(distritos) { distrito->
-            llenarDistritos(distrito = distrito,  navController)
+        LazyColumn {
+            items(distritos) { distrito->
+                llenarDistritos(distrito = distrito,  navController)
+            }
         }
-    }
 }
 
 @Composable
@@ -64,7 +63,9 @@ fun llenarDistritos(distrito: Distritos.Distrito, navController: NavController) 
         val surfaceColor by animateColorAsState(
             if (isExpanded) MaterialTheme.colors.secondary else MaterialTheme.colors.surface,
         )
-        Column (modifier = Modifier.width(290.dp).clickable{ isExpanded = !isExpanded }){
+        Column (modifier = Modifier
+            .width(290.dp)
+            .clickable { isExpanded = !isExpanded }){
             Text(
                 text = distrito.nombre,
                 color = MaterialTheme.colors.secondaryVariant,
@@ -73,7 +74,9 @@ fun llenarDistritos(distrito: Distritos.Distrito, navController: NavController) 
             Spacer(modifier = Modifier.height(4.dp))
             Surface(shape = MaterialTheme.shapes.medium, elevation = 1.dp,
                     color = surfaceColor,
-                    modifier = Modifier.animateContentSize().padding(1.dp) ) {
+                    modifier = Modifier
+                        .animateContentSize()
+                        .padding(1.dp) ) {
                 Text(
                     text = distrito.descripción+"\n"+
                             "Altura: " + distrito.altura + " msnm\n"+
@@ -92,7 +95,10 @@ fun llenarDistritos(distrito: Distritos.Distrito, navController: NavController) 
                              dataStore.saveNoteDistrito(distrito.nombre)
                          }
                          },
-                modifier = Modifier.fillMaxHeight().width(50.dp).padding(all = 5.dp)){
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .width(50.dp)
+                    .padding(all = 5.dp)){
             Text(">")
         }
     }

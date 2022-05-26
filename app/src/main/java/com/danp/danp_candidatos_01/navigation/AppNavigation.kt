@@ -32,8 +32,14 @@ fun AppNavigation(
             SegundaVentana(newText, navController)
         }
 
-        composable(route = TerceraVentana.route) {
-            TerceraVentana()
+        composable(
+            route = TerceraVentana.route,
+            arguments = listOf(navArgument("newText"){defaultValue = "vacio"})
+        ) { navBackStackEntry->
+            var newText = navBackStackEntry.arguments?.getString("newText")
+            requireNotNull(newText)
+            TerceraVentana(newText, navController)
         }
+
     }
 }

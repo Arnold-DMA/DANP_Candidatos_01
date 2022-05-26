@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.draw.clip
@@ -36,48 +37,173 @@ import kotlinx.coroutines.launch
 fun SegundaVentana(text: String, navController: NavController){
     var valor: String
     val context = LocalContext.current
-    val scope = rememberCoroutineScope()
     val dataStore = Preferencias(context)
     Scaffold(topBar = {
         TopAppBar() {
             Text(text = "Resultados de búsqueda")
         }
     }) {
-        if(text == "Almacenado"){
-            val dataDistrito = dataStore.getDistrito.collectAsState(initial = "")
-            if (dataDistrito.value == "" || dataDistrito.value == "ninguno"){
-                valor = "ninguno";
-            }
-            else{
-                valor = dataDistrito.value;
-            }
-        }
-        else{
-            valor = text;
-        }
-        if(valor == "ALTO SELVA ALEGRA")
-            ListCandidatos(Candidatos.candidatosListASA, navController)
-        else if(valor == "CAYMA")
-            ListCandidatos(Candidatos.candidatosListASA, navController)
-        else if(valor == "CERRO COLORADO")
-            ListCandidatos(Candidatos.candidatosListASA, navController)
-        else if(valor == "JACOBO HUNTER")
-            ListCandidatos(Candidatos.candidatosListASA, navController)
-        else if(valor == "JOSE LUIS BUSTAMANTE Y RIVERO")
-            ListCandidatos(Candidatos.candidatosListASA, navController)
-        else if(valor == "MARIANO MELGAR")
-            ListCandidatos(Candidatos.candidatosListASA, navController)
-        else if(valor == "MIRAFLORES")
-            ListCandidatos(Candidatos.candidatosListASA, navController)
-        else if(valor == "PAUCARPATA")
-            ListCandidatos(Candidatos.candidatosListASA, navController)
-        else if(valor == "SOCABAYA")
-            ListCandidatos(Candidatos.candidatosListASA, navController)
-        else if(valor == "YANAHUARA")
-            ListCandidatos(Candidatos.candidatosListASA, navController)
-        else
-            PaginaBlanca()
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(1.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
 
+            if (text == "Almacenado") {
+                val dataDistrito = dataStore.getDistrito.collectAsState(initial = "")
+                if (dataDistrito.value == "" || dataDistrito.value == "ninguno") {
+                    valor = "ninguno";
+                } else {
+                    valor = dataDistrito.value;
+                }
+            } else {
+                valor = text;
+            }
+            if (valor == "ALTO SELVA ALEGRE") {
+                Text(
+                    text = valor,
+                    style = TextStyle(color = Color.Black, fontSize = 42.sp, fontWeight = FontWeight.Black)
+                )
+                Image(
+                    painter = painterResource(R.drawable.ic_alto_selva_alegre),
+                    contentDescription = valor,
+                    modifier = Modifier.padding(all = 20.dp)
+                        .clip(RoundedCornerShape(50.dp))
+                        .border(1.5.dp, MaterialTheme.colors.onPrimary, RoundedCornerShape(10.dp))
+                )
+                ListCandidatos(Candidatos.candidatosListCC, navController)
+            }
+            else if (valor == "CAYMA") {
+                Text(
+                    text = valor,
+                    style = TextStyle(color = Color.Black, fontSize = 42.sp, fontWeight = FontWeight.Black)
+                )
+                Image(
+                    painter = painterResource(R.drawable.ic_cayma),
+                    contentDescription = valor,
+                    modifier = Modifier.padding(all = 20.dp)
+                        .clip(RoundedCornerShape(50.dp))
+                        .border(1.5.dp, MaterialTheme.colors.onPrimary, RoundedCornerShape(10.dp))
+                )
+                ListCandidatos(Candidatos.candidatosListC, navController)
+            }
+            else if (valor == "CERRO COLORADO") {
+                Text(
+                    text = valor,
+                    style = TextStyle(color = Color.Black, fontSize = 42.sp, fontWeight = FontWeight.Black)
+                )
+                Image(
+                    painter = painterResource(R.drawable.ic_cerro_colorado),
+                    contentDescription = valor,
+                    modifier = Modifier.padding(all = 20.dp)
+                        .clip(RoundedCornerShape(50.dp))
+                        .border(1.5.dp, MaterialTheme.colors.onPrimary, RoundedCornerShape(10.dp))
+                )
+                ListCandidatos(Candidatos.candidatosListCC, navController)
+            }
+            else if (valor == "JACOBO HUNTER") {
+                Text(
+                    text = valor,
+                    style = TextStyle(color = Color.Black, fontSize = 42.sp, fontWeight = FontWeight.Black)
+                )
+                Image(
+                    painter = painterResource(R.drawable.ic_jacobo_hunter),
+                    contentDescription = valor,
+                    modifier = Modifier.padding(all = 20.dp)
+                        .clip(RoundedCornerShape(50.dp))
+                        .border(1.5.dp, MaterialTheme.colors.onPrimary, RoundedCornerShape(10.dp))
+                )
+                ListCandidatos(Candidatos.candidatosListJH, navController)
+            }
+            else if (valor == "JOSE LUIS BUSTAMANTE Y RIVERO") {
+                Text(
+                    text = valor,
+                    style = TextStyle(color = Color.Black, fontSize = 42.sp, fontWeight = FontWeight.Black)
+                )
+                Image(
+                    painter = painterResource(R.drawable.ic_jlbr),
+                    contentDescription = valor,
+                    modifier = Modifier.padding(all = 20.dp)
+                        .clip(RoundedCornerShape(50.dp))
+                        .border(1.5.dp, MaterialTheme.colors.onPrimary, RoundedCornerShape(10.dp))
+                )
+                ListCandidatos(Candidatos.candidatosListJBYR, navController)
+            }
+            else if (valor == "MARIANO MELGAR") {
+                Text(
+                    text = valor,
+                    style = TextStyle(color = Color.Black, fontSize = 42.sp, fontWeight = FontWeight.Black)
+                )
+                Image(
+                    painter = painterResource(R.drawable.ic_mariano_melgar),
+                    contentDescription = valor,
+                    modifier = Modifier.padding(all = 20.dp)
+                        .clip(RoundedCornerShape(50.dp))
+                        .border(1.5.dp, MaterialTheme.colors.onPrimary, RoundedCornerShape(10.dp))
+                )
+                ListCandidatos(Candidatos.candidatosListMM, navController)
+            }
+            else if (valor == "MIRAFLORES") {
+                Text(
+                    text = valor,
+                    style = TextStyle(color = Color.Black, fontSize = 42.sp, fontWeight = FontWeight.Black)
+                )
+                Image(
+                    painter = painterResource(R.drawable.ic_miraflores),
+                    contentDescription = valor,
+                    modifier = Modifier.padding(all = 20.dp)
+                        .clip(RoundedCornerShape(50.dp))
+                        .border(1.5.dp, MaterialTheme.colors.onPrimary, RoundedCornerShape(10.dp))
+                )
+                ListCandidatos(Candidatos.candidatosListM, navController)
+            }
+            else if (valor == "PAUCARPATA") {
+                Text(
+                    text = valor,
+                    style = TextStyle(color = Color.Black, fontSize = 42.sp, fontWeight = FontWeight.Black)
+                )
+                Image(
+                    painter = painterResource(R.drawable.ic_paucarpata),
+                    contentDescription = valor,
+                    modifier = Modifier.padding(all = 20.dp)
+                        .clip(RoundedCornerShape(50.dp))
+                        .border(1.5.dp, MaterialTheme.colors.onPrimary, RoundedCornerShape(10.dp))
+                )
+                ListCandidatos(Candidatos.candidatosListP, navController)
+            }
+            else if (valor == "SOCABAYA") {
+                Text(
+                    text = valor,
+                    style = TextStyle(color = Color.Black, fontSize = 42.sp, fontWeight = FontWeight.Black)
+                )
+                Image(
+                    painter = painterResource(R.drawable.ic_socabaya),
+                    contentDescription = valor,
+                    modifier = Modifier.padding(all = 20.dp)
+                        .clip(RoundedCornerShape(50.dp))
+                        .border(1.5.dp, MaterialTheme.colors.onPrimary, RoundedCornerShape(10.dp))
+                )
+                ListCandidatos(Candidatos.candidatosListS, navController)
+            }
+            else if (valor == "YANAHUARA") {
+                Text(
+                    text = valor,
+                    style = TextStyle(color = Color.Black, fontSize = 42.sp, fontWeight = FontWeight.Black)
+                )
+                Image(
+                    painter = painterResource(R.drawable.ic_yanahuara),
+                    contentDescription = valor,
+                    modifier = Modifier.padding(all = 20.dp)
+                        .clip(RoundedCornerShape(50.dp))
+                        .border(1.5.dp, MaterialTheme.colors.onPrimary, RoundedCornerShape(10.dp))
+                )
+                ListCandidatos(Candidatos.candidatosListY, navController)
+            }
+            else {
+                PaginaBlanca()
+            }
+        }
 
     }
 }
@@ -123,7 +249,7 @@ fun llenarCandidatos(candidato: Candidatos.Candidato, navController: NavControll
                 Text(
                     text = candidato.partido+"\n"+
                             "DNI: " + candidato.dni + "\n"+
-                            "Población: "+candidato.edad,
+                            "Edad: "+candidato.edad,
                     modifier = Modifier.padding(all = 4.dp),
                     style = MaterialTheme.typography.body2,
                     maxLines = if (isExpanded) Int.MAX_VALUE else 1
@@ -131,10 +257,11 @@ fun llenarCandidatos(candidato: Candidatos.Candidato, navController: NavControll
                 )
             }
         }
-        Button(onClick = {navController.navigate(AppScreens.SegundaVentana.createRoute(candidato.nombre))
+        Button(onClick = {
             scope.launch {
-                dataStore.saveNoteCandidato(candidato.nombre)
+                dataStore.saveNoteCandidato(candidato.partido)
             }
+            navController.navigate(AppScreens.TerceraVentana.createRoute(candidato.partido))
         },
             modifier = Modifier.fillMaxHeight().width(50.dp).padding(all = 5.dp)){
             Text(">")
