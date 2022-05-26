@@ -1,5 +1,6 @@
 package com.danp.danp_candidatos_01.screens
 
+import android.content.Context
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.*
@@ -17,6 +18,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.danp.danp_candidatos_01.Distritos
 import androidx.compose.foundation.clickable
+import androidx.compose.ui.platform.LocalContext
+import androidx.datastore.preferences.preferencesDataStore
+import com.danp.danp_candidatos_01.Preferencias
+import kotlinx.coroutines.launch
 
 
 @Composable
@@ -42,6 +47,9 @@ fun ListDistritos(distritos: List<Distritos.Distrito>, navController: NavControl
 
 @Composable
 fun llenarDistritos(distrito: Distritos.Distrito, navController: NavController) {
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    val dataStore = Preferencias(context)
     Row(modifier = Modifier.padding(all = 8.dp)) {
         Image(
             painter = painterResource(distrito.ic_imagen),
@@ -68,18 +76,22 @@ fun llenarDistritos(distrito: Distritos.Distrito, navController: NavController) 
                     modifier = Modifier.animateContentSize().padding(1.dp) ) {
                 Text(
                     text = distrito.descripción+"\n"+
-                            "Altura:" + distrito.altura + " msnm\n"+
+                            "Altura: " + distrito.altura + " msnm\n"+
                             "Población: "+distrito.población+" personas\n"+
                             "Superficie: "+distrito.superficie+" km2\n"+
                             "Cantidad de candidatos: "+distrito.candidatos,
                     modifier = Modifier.padding(all = 4.dp),
                     style = MaterialTheme.typography.body2,
-                    maxLines = if (isExpanded) Int.MAX_VALUE else 1,
+                    maxLines = if (isExpanded) Int.MAX_VALUE else 1
 
                 )
             }
         }
-        Button(onClick = {navController.navigate(AppScreens.SegundaVentana.createRoute(distrito.nombre))},
+        Button(onClick = {navController.navigate(AppScreens.SegundaVentana.createRoute(distrito.nombre))
+                         scope.launch {
+                             dataStore.saveNoteDistrito(distrito.nombre)
+                         }
+                         },
                 modifier = Modifier.fillMaxHeight().width(50.dp).padding(all = 5.dp)){
             Text(">")
         }

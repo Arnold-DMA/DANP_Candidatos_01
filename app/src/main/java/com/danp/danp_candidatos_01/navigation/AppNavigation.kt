@@ -25,11 +25,11 @@ fun AppNavigation(
         }
         composable(
             route = SegundaVentana.route,
-            arguments = listOf(navArgument("newText"){defaultValue = "Resultados"})
+            arguments = listOf(navArgument("newText"){defaultValue = "Almacenado"})
         ) { navBackStackEntry->
             var newText = navBackStackEntry.arguments?.getString("newText")
             requireNotNull(newText)
-            SegundaVentana(newText)
+            SegundaVentana(newText, navController)
         }
 
         composable(route = TerceraVentana.route) {
