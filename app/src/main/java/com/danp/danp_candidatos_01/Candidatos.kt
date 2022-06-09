@@ -1,7 +1,13 @@
 package com.danp.danp_candidatos_01
 
 object Candidatos {
-    data class Candidato(val partido: String, val nombre: String, val dni: String, val edad: String, val ic_candidato: kotlin.Int,val ic_partido: kotlin.Int)
+    data class Candidato(
+        val partido: String,
+        val nombre: String,
+        val dni: String,
+        val edad: String,
+        val ic_candidato: kotlin.Int,
+        val ic_partido: kotlin.Int)
 
     val candidatosListASA: List<Candidato> = listOf(
         Candidato("AREQUIPA, TRADICION Y FUTURO", "DAVID ADOLFO BARRIGA MIRANDA", "41448246", "39", R.drawable.ic_atf_dis_01,R.drawable.ic_atf),
