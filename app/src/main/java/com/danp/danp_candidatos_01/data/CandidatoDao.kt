@@ -1,16 +1,26 @@
 package com.danp.danp_candidatos_01.data
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface CandidatoDao {
-    @Query("SELECT * FROM `candidato-tb`")
-    fun obtenerTodosCandidatos():LiveData<List<CandidatoEntity>>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun agregarCandidato(candidato: CandidatoEntity)
+    @Query("SELECT * FROM CandidatoEntity")
+    fun getAll(): List<CandidatoEntity>
+
+    @Query("SELECT * FROM CandidatoEntity WHERE distrito = :distrito")
+    fun getByDistrito(distrito: String): List<CandidatoEntity>
+
+    @Query("SELECT * FROM CandidatoEntity WHERE nombre = :nombre")
+    suspend fun getByName(nombre: String): CandidatoEntity
+
+    @Update
+    suspend fun update(candidato: CandidatoEntity)
+
+    @Insert
+    suspend fun insert(candidato: CandidatoEntity)
+
+    @Delete
+    suspend fun delete(candidato: CandidatoEntity)
 }

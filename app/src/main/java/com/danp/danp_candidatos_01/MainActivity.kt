@@ -14,13 +14,17 @@ import com.danp.danp_candidatos_01.navigation.AppNavigation
 import com.danp.danp_candidatos_01.navigation.AppScreens.*
 import com.danp.danp_candidatos_01.ui.theme.DANP_Candidatos_01Theme
 
+
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContent {
             DANP_Candidatos_01Theme{
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
+
                     MainScreen()
                 }
             }
@@ -29,12 +33,14 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MainScreen(){
+fun MainScreen() {
     val navController = rememberNavController()
     val navigationItems = listOf(
         PrimeraVentana,
         SegundaVentana,
-        TerceraVentana
+        //TerceraVentana,
+        DistritosCRUD,
+        CandidatosCRUD
     )
     Scaffold(
         bottomBar = { BottomNavigationBar(navController = navController, items = navigationItems)}

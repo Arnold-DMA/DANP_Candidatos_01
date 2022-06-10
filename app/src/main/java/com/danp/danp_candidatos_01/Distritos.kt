@@ -4,9 +4,9 @@ object Distritos {
     data class Distrito(
         val nombre: String,
         val altura: String,
-        val población: String,
+        val poblacion: String,
         val superficie: String,
-        val descripción: String,
+        val descripcion: String,
         val candidatos: String,
         val ic_imagen: kotlin.Int)
 
@@ -15,7 +15,7 @@ object Distritos {
             "2500",
             "86174",
             "6.98",
-            "Resalta el Parque Selva Alegre y alrededores, la pureza del aire. Y la rapdio acceso al cercado en 20 minutos",
+            "Resalta el Parque Selva Alegre y alrededores, la pureza del aire. Y rápido acceso al cercado en 20 minutos",
             "17",
             R.drawable.ic_alto_selva_alegre),
 

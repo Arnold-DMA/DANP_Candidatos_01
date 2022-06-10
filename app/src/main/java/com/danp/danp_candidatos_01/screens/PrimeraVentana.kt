@@ -15,43 +15,49 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.danp.danp_candidatos_01.Distritos
 import androidx.compose.foundation.clickable
 import androidx.compose.ui.platform.LocalContext
+import androidx.room.Room
+import coil.compose.rememberImagePainter
 import com.danp.danp_candidatos_01.Preferencias
+import com.danp.danp_candidatos_01.data.DistritoEntity
+import com.danp.danp_candidatos_01.data.EleccionesDataBase
 import kotlinx.coroutines.launch
-
 
 @Composable
 fun PrimeraVentana(navController: NavController){
 
+    val db = Room.databaseBuilder(
+        LocalContext.current,
+        EleccionesDataBase::class.java, "elecciones"
+    ).allowMainThreadQueries().build()
     Scaffold(topBar = {
         TopAppBar() {
             Text(text = "Distritos")
         }
     }) {
-        ListDistritos(Distritos.distritos, navController)
-        
+        ListDistritos(db.distritoDao().getAll(), navController)
     }
 }
 
 @Composable
-fun ListDistritos(distritos: List<Distritos.Distrito>, navController: NavController) {
+fun ListDistritos(distritos: List<DistritoEntity>, navController: NavController) {
         LazyColumn {
             items(distritos) { distrito->
-                llenarDistritos(distrito = distrito,  navController)
+                llenarDistritos(distrito,  navController)
             }
         }
 }
 
 @Composable
-fun llenarDistritos(distrito: Distritos.Distrito, navController: NavController) {
+fun llenarDistritos(distrito: DistritoEntity, navController: NavController) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val dataStore = Preferencias(context)
     Row(modifier = Modifier.padding(all = 8.dp)) {
         Image(
-            painter = painterResource(distrito.ic_imagen),
+            //painter = painterResource(distrito.ic_imagen),
+            painter = rememberImagePainter(data = distrito.ic_imagen),
             contentDescription = distrito.nombre,
             modifier = Modifier
                 .size(64.dp)
@@ -78,9 +84,9 @@ fun llenarDistritos(distrito: Distritos.Distrito, navController: NavController) 
                         .animateContentSize()
                         .padding(1.dp) ) {
                 Text(
-                    text = distrito.descripción+"\n"+
+                    text = distrito.descripcion+"\n"+
                             "Altura: " + distrito.altura + " msnm\n"+
-                            "Población: "+distrito.población+" personas\n"+
+                            "Población: "+distrito.poblacion+" personas\n"+
                             "Superficie: "+distrito.superficie+" km2\n"+
                             "Cantidad de candidatos: "+distrito.candidatos,
                     modifier = Modifier.padding(all = 4.dp),
